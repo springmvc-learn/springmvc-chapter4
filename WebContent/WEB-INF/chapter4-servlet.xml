@@ -60,4 +60,13 @@
 	<property name="cancelView" value="redirect:/cancel"/>
 </bean>
 <bean name="/cancel" class="cn.bling.chapter4.web.controller.CancelController"></bean>
+<bean name="/infoFillWizard" class="cn.bling.chapter4.web.controller.InfoFillWizardFormController">
+	<property name="pages">
+		<list>
+			<value>wizard/baseInfo</value>  
+            <value>wizard/schoolInfo</value>  
+            <value>wizard/workInfo</value>  
+		</list>
+	</property>
+</bean>
 </beans>

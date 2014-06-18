@@ -4,6 +4,10 @@ public class UserModel {
 	private String username;
 	private String password;
 	private String city;
+	
+	private String realname;
+	private WorkInfoModel workInfo;
+	private SchoolInfoModel schoolInfo;
 	public String getUsername() {
 		return username;
 	}
@@ -22,5 +26,24 @@ public class UserModel {
 	public void setCity(String city) {
 		this.city = city;
 	}
+	public String getRealname() {
+		return realname;
+	}
+	public void setRealname(String realname) {
+		this.realname = realname;
+	}
+	public WorkInfoModel getWorkInfo() {
+		return workInfo;
+	}
+	public void setWorkInfo(WorkInfoModel workInfo) {
+		this.workInfo = workInfo;
+	}
+	public SchoolInfoModel getSchoolInfo() {
+		return schoolInfo;
+	}
+	public void setSchoolInfo(SchoolInfoModel schoolInfo) {
+		this.schoolInfo = schoolInfo;
+	}
+	
 	
 }
