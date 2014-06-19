@@ -69,4 +69,47 @@
 		</list>
 	</property>
 </bean>
+<bean id="userService" class="cn.bling.chapter4.model.UserService"/> 
+<bean name="/user/**" class="cn.bling.chapter4.web.controller.UserController">  
+    <property name="userService" ref="userService"/>  
+    <property name="createView" value="user/create"/>  
+    <property name="updateView" value="user/update"/>  
+    <property name="deleteView" value="user/delete"/>  
+    <property name="listView" value="user/list"/>  
+    <property name="redirectToListView" value="redirect:/user/list"/>  
+    <!-- 使用PropertiesMethodNameResolver来解析功能处理方法名 -->         
+    <!--property name="methodNameResolver" ref="propertiesMethodNameResolver"/-->  
+</bean>  
+
+<!-- 委托对象 -->
+<bean id="userDelegate" class="cn.bling.chapter4.web.controller.UserDelegate">
+   <property name="userService" ref="userService"/>
+   <property name="createView" value="user2/create"/>
+   <property name="updateView" value="user2/update"/>
+   <property name="deleteView" value="user2/delete"/>
+   <property name="listView" value="user2/list"/>
+   <property name="redirectToListView" value="redirect:/user2/list"/>
+</bean>
+<!-- 控制器对象 -->
+<bean name="/user2/**" 
+class="org.springframework.web.servlet.mvc.multiaction.MultiActionController">
+<property name="delegate" ref="userDelegate"/>
+    <property name="methodNameResolver" ref="parameterMethodNameResolver"/>
+</bean>
+<!-- ParameterMethodNameResolver -->
+<bean id="parameterMethodNameResolver" 
+class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
+<!-- 1、根据请求参数名解析功能方法名 -->
+    <property name="methodParamNames" value="create,update,delete"/>
+    <!-- 2、根据请求参数名的值解析功能方法名 -->
+    <property name="paramName" value="action"/>
+<!-- 3、逻辑方法名到真实方法名的映射 -->
+    <property name="logicalMappings">
+       <props>
+           <prop key="doList">list</prop>
+       </props>
+    </property>
+    <!--4、默认执行的功能处理方法  -->
+    <property name="defaultMethodName" value="list"/>
+</bean>   
 </beans>
