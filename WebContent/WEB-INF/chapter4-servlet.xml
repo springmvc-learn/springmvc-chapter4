@@ -112,4 +112,33 @@ class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolv
     <!--4、默认执行的功能处理方法  -->
     <property name="defaultMethodName" value="list"/>
 </bean>   
+<!--bean name="/dataBind" class="cn.bling.chapter4.web.controller.DataBinderTestController"></bean-->
+<!-- 注册WebBindingInitializer实现 -->  
+<bean id="myWebBindingInitializer" class="cn.bling.chapter4.web.controller.support.initializer.MyWebBindingInitializer"/>  
+<bean name="/dataBind" class="cn.bling.chapter4.web.controller.DataBinderTestController">  
+    <!-- 注入WebBindingInitializer实现 -->  
+    <property name="webBindingInitializer" ref="myWebBindingInitializer"/>  
+</bean> 
+<bean id="messageSource"  
+       class="org.springframework.context.support.ReloadableResourceBundleMessageSource">  
+    <property name="basename" value="classpath:messages"/>  
+    <property name="fileEncodings" value="utf-8"/>  
+    <property name="cacheSeconds" value="120"/>  
+</bean>  
+   
+<bean name="/error" class="cn.bling.chapter4.web.controller.ErrorController"/>
+<bean name="/dataBindError"  
+class="cn.bling.chapter4.web.controller.DataBinderErrorTestController">  
+   <property name="formView" value="bindAndValidate/input"/>  
+   <property name="successView" value="bindAndValidate/success"/>  
+</bean>   
+ 
+<bean id="userModelValidator"  
+class="cn.bling.chapter4.web.controller.support.validator.UserModelValidator"/>  
+<bean name="/validator"  
+class="cn.bling.chapter4.web.controller.RegisterSimpleFormController">  
+    <property name="formView" value="registerAndValidator"/>  
+    <property name="successView" value="redirect:/success"/>  
+    <property name="validator" ref="userModelValidator"/>  
+</bean>  
 </beans>
